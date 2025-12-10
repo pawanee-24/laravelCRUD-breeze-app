@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('New User') }}
+            {{ __('New Brands') }}
         </h2>
     </x-slot>
 
@@ -10,18 +10,18 @@
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">Create User Form</h6>
-                    <a href="{{ route('users.index') }}" class="btn btn-sm btn-danger p-2"><i class="fa fa-angle-left"></i>- Back</a>
+                    <h6 class="m-0 font-weight-bold text-primary">Create Brands</h6>
+                    <a href="{{ route('brands.index') }}" class="btn btn-sm btn-danger p-2"><i class="fa fa-angle-left"></i>- Back</a>
                 </div>
 
                 <div class="card-body">
 
-                    <form method="POST" action="{{ route('users.save')}}">
+                    <form method="POST" action="{{ route('brands.save')}}">
                         @csrf
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter Your Name">
+                            <label for="name" class="form-label">Brands Name</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter Brands Name">
 
                             @error('name')
                                 <div class="d-flex align-items-center mt-2 text-danger">
@@ -31,11 +31,18 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="emailaddress" class="form-label">Email address</label>
-                            <input type="email" name="email" class="form-control" id="emailaddress" placeholder="Enter Your Email">
+                        <div class="form-group mb-3">
+                            <label for="category">Category Name</label>
+                            <select id="category" name="category_id" class="form-control">
+                                <option selected disabled>Select Category</option>
 
-                            @error('email')
+                                @foreach ($categories as $category )
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+
+                            </select>
+
+                            @error('category_id')
                                 <div class="d-flex align-items-center mt-2 text-danger">
                                     <i class="fas fa-exclamation-triangle me-2"></i>
                                     <span>{{ $message }}</span>
@@ -43,11 +50,12 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
 
-                            @error('password')
+                        <div class="mb-3">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" name="country" class="form-control" id="country" placeholder="Enter Country Name">
+
+                            @error('country')
                                 <div class="d-flex align-items-center mt-2 text-danger">
                                     <i class="fas fa-exclamation-triangle me-2"></i>
                                     <span>{{ $message }}</span>
@@ -56,20 +64,15 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="confirmpassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" name="description" id="description" placeholder="Enter Description"></textarea>
 
-                            @error('confirmpassword')
+                            @error('description')
                                 <div class="d-flex align-items-center mt-2 text-danger">
                                     <i class="fas fa-exclamation-triangle me-2"></i>
                                     <span>{{ $message }}</span>
                                 </div>
                             @enderror
-                        </div>
-
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
                         </div>
 
                         <button type="submit" class="btn btn-primary mb-2">Submit</button>

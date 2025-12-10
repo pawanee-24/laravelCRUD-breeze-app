@@ -43,12 +43,33 @@
         Interface
     </div>
 
+    <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('users.index') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Users</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ request()->routeIs('categories.index') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('categories.index') }}">
+            <i class="fas fa-fw fa-stream"></i>
+            <span>Categories</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ request()->routeIs('brands.index') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('brands.index') }}">
+            <i class="fas fa-fw fa-poll"></i>
+            <span>Brands</span>
+        </a>
+    </li>
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
+            <span>Products</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">

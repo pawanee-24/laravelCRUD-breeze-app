@@ -17,7 +17,7 @@
 
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100"
-            style="background: url('{{ asset('adminTheme/img/undraw_posting_photo.svg') }}') no-repeat center center; background-size: cover;">
+            style="background: url('{{ asset('adminTheme/img/login.svg') }}') no-repeat center center; background-size: cover;">
 
             <div>
                 <a href="/">

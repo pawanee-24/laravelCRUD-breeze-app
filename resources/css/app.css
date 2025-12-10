@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.swal-title-small {
+    font-size: 25px !important;
+    font-weight: 600;
+}
