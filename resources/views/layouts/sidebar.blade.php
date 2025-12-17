@@ -64,6 +64,13 @@
         </a>
     </li>
 
+    <li class="nav-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('roles.index') }}">
+            <i class="fas fa-fw fa-poll"></i>
+            <span>Roles</span>
+        </a>
+    </li>
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

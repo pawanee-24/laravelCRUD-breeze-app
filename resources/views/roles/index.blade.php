@@ -1,15 +1,15 @@
 <x-app-layout>
     {{-- Page title (browser tab) --}}
-    <x-slot name="title">User Management</x-slot>
+    <x-slot name="title">Role Management</x-slot>
     {{-- Page heading --}}
-    <x-slot name="pageTitle">User Management</x-slot>
+    <x-slot name="pageTitle">Role Management</x-slot>
 
     {{-- Breadcrumb --}}
     <x-slot name="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{ route('dashboard') }}">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Users</li>
+        <li class="breadcrumb-item active">Roles</li>
     </x-slot>
 
 
@@ -20,8 +20,8 @@
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">Users Information</h6>
-                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary p-2">+ Add New User </a>
+                    <h6 class="m-0 font-weight-bold text-primary">Role List</h6>
+                    <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary p-2">+ Add New Role</a>
                 </div>
 
                 <div class="card-body">
@@ -31,39 +31,36 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
+                                    <th>Description</th>
+                                    <th>Users Count</th>
+                                    <th>Permissions Count</th>
+                                    <th>Created At</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-                                @forelse ($users as $user )
+                                @forelse ($roles as $role )
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $role->name }}</td>
+                                        <td>{{ $role->description }}</td>
+                                        <td>{{ $role->users_count }}</td>
+                                        <td>{{ $role->permissions_count }}</td>
+                                        <td>{{ $role->created_at }}</td>
+
                                         <td>
-                                            @if($user->roles->count())
-                                                @foreach($user->roles as $role)
-                                                    <span class="badge badge-success mb-1">{{ $role->name }}</span>
-                                                @endforeach
-                                            @else
-                                                <span class="text-dark"> - </span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ url('/users/details/' . $user->id ) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ url('/users/edit/' . $user->id ) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="commonDeleteFunction('{{ url('/users/delete/' . $user->id) }}', '{{ $user->name }}', this)">
+                                            <a href="{{ url('/roles/details/' . $role->id ) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ url('/roles/edit/' . $role->id ) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="commonDeleteFunction('{{ url('/roles/delete/' . $role->id) }}', '{{ $role->name }}', this)">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-danger">No Users</td>
+                                        <td colspan="4" class="text-danger">No Roles</td>
                                     </tr>
                                 @endforelse
 

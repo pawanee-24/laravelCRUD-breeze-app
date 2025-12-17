@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/save', [UserController::class, 'store'])->name('users.save');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/update/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
 
     Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
@@ -39,6 +43,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/brands/edit/{id}', [BrandsController::class, 'edit'])->name('brands.edit');
     Route::put('/brands/update/{id}', [BrandsController::class, 'update'])->name('brands.update');
     Route::delete('/brands/delete/{id}', [BrandsController::class, 'delete'])->name('brands.delete');
+
+    Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RolesController::class, 'create'])->name('roles.create');
+    Route::post('/roles/save', [RolesController::class, 'save'])->name('roles.save');
+    Route::get('/roles/edit/{id}', [RolesController::class, 'edit'])->name('roles.edit');
+    Route::get('/roles/details/{id}', [RolesController::class, 'show'])->name('roles.details');
+    Route::put('/roles/update/{id}', [RolesController::class, 'update'])->name('roles.update');
+    Route::delete('/roles/delete/{id}', [RolesController::class, 'delete'])->name('roles.delete');
 
 });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -22,7 +23,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Role::all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -31,20 +33,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|same:confirmpassword',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+            'roles' => 'required|array|min:1'
         ]);
+
 
         $user = new User();
 
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->syncRoles($request->roles);
 
         $user->save();
 
-        return redirect('/users')->with('msg', "Create New User Successfully!");
+        return redirect('/users')->with('msg', "User Created Successfully!");
     }
 
     /**
@@ -58,17 +63,41 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        //
+        $users = User::findOrFail($id);
+        $roles = Role::all();
+        return view('users.edit', compact('users', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $users = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $users->id,
+            'password' => 'nullable|min:8|confirmed',
+            'roles' => 'required|array|min:1'
+        ]);
+
+        $users->name = $request->name;
+        $users->email = $request->email;
+
+        // update password only filled
+        if ($request->filled('password')) {
+            $users->password = Hash::make($request->password);
+        }
+
+        $users->syncRoles($request->roles);
+
+        $users->save();
+
+        return redirect('/users')->with('msg', "User Updated Successfully!");
+
     }
 
     /**

@@ -1,16 +1,28 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('New Product Category') }}
-        </h2>
+    {{-- Page title (browser tab) --}}
+    <x-slot name="title">Create Category</x-slot>
+    {{-- Page heading --}}
+    <x-slot name="pageTitle">Create Category</x-slot>
+
+    {{-- Breadcrumb --}}
+    <x-slot name="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ route('dashboard') }}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ route('categories.index') }}">Categories</a>
+        </li>
+        <li class="breadcrumb-item active">Create</li>
     </x-slot>
 
+
+    {{-- Page content --}}
     <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">Create Category</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Category Information</h6>
                     <a href="{{ route('categories.index') }}" class="btn btn-sm btn-danger p-2"><i class="fa fa-angle-left"></i>- Back</a>
                 </div>
 

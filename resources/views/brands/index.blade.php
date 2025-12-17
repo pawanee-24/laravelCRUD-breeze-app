@@ -1,17 +1,26 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Product Brands') }}
-        </h2>
+    {{-- Page title (browser tab) --}}
+    <x-slot name="title">Brands</x-slot>
+    {{-- Page heading --}}
+    <x-slot name="pageTitle">Brands</x-slot>
+
+    {{-- Breadcrumb --}}
+    <x-slot name="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ route('dashboard') }}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Brands</li>
     </x-slot>
 
+
+    {{-- Page content --}}
     <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">Brands List</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Brands Information</h6>
                     <a href="{{ route('brands.create') }}" class="btn btn-sm btn-primary p-2">+ Add New</a>
                 </div>
 
@@ -39,12 +48,11 @@
                                         <td>{{ $brand->country ?? 'N/A' }}</td>
                                         <td>{{ $brand->description ?? 'N/A' }}</td>
                                         <td>
-                                            <a href="{{ url('/brands/edit/' . $brand->id) }}" class="btn btn-sm btn-primary">
-                                                Edit
-                                            </a>
+                                            <a href="{{ url('/brands/details/' . $brand->id ) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ url('/brands/edit/' . $brand->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
 
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="commonDeleteFunction('{{ url('/brands/delete/' . $brand->id) }}', '{{ $brand->name }}', this)">
-                                                Delete
+                                                <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
