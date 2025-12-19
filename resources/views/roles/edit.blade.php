@@ -28,13 +28,13 @@
 
                 <div class="card-body">
 
-                    <form method="POST" action="{{ url('/roles/update', $roles->id) }}">
+                    <form method="POST" action="{{ url('/roles/update', $role->id) }}">
                         @csrf
                         @method('PUT')
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Role Name <span class="text-danger">*</span></label>
-                            <input type="text" name="name" value="{{ old('name', $roles->name) }}" class="form-control" id="name" placeholder="Enter Role Name">
+                            <input type="text" name="name" value="{{ old('name', $role->name) }}" class="form-control" id="name" placeholder="Enter Role Name">
 
                             @error('name')
                                 <div class="d-flex align-items-center mt-2 text-danger">
@@ -46,7 +46,7 @@
 
                         <div class="mb-4">
                             <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
-                            <textarea name="description" class="form-control" id="description" placeholder="Enter Description">{{ old('description', $roles->description) }}</textarea>
+                            <textarea name="description" class="form-control" id="description" placeholder="Enter Description">{{ old('description', $role->description) }}</textarea>
 
                             @error('description')
                                 <div class="d-flex align-items-center mt-2 text-danger">
@@ -56,17 +56,32 @@
                             @enderror
                         </div>
 
-                        <div class="mb-4">
+
+                        <div class="mb-5">
                             <label for="permissions[]" class="form-label mb-3">Permissions <span class="text-danger">*</span></label>
                             <div class="row">
                                 @foreach($permissions as $permission)
-                                    <div class="col-md-3">
-                                        <label>
-                                            <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" {{ $roles->hasPermissionTo($permission->name) ? 'checked' : '' }}> {{ $permission->name }}
-                                        </label>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->name }}" {{ $role->hasPermissionTo($permission->name) ? 'checked' : '' }}>
+
+                                            <label class="form-check-label" for="permission_{{ $permission->id }}">
+                                                <strong>{{ $permission->name }}</strong>
+                                                <div class="text-muted small">
+                                                    {{ $permission->description }}
+                                                </div>
+                                            </label>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
+
+                            @error('permissions')
+                                <div class="d-flex align-items-center mt-2 text-danger">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <span>{{ $message }}</span>
+                                </div>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn btn-primary mb-2">Update</button>

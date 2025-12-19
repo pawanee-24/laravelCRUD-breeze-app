@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:view.categories')->only('index');
+        $this->middleware('permission:create.categories')->only(['create', 'store']);
+        $this->middleware('permission:update.categories')->only(['edit', 'update']);
+        $this->middleware('permission:delete.categories')->only('delete');
+    }
+
+
     public function index()
     {
         // $categories = Categories::where('deleted', 0)->get();
@@ -93,6 +103,13 @@ class CategoriesController extends Controller
             ]);
         }
 
+    }
+
+
+    public function show($id)
+    {
+        $categories = Categories::findOrFail($id);
+        return view('categories.show', compact('categories'));
     }
 
 }

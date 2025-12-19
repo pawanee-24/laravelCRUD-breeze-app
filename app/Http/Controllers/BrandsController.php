@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 class BrandsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:view.brands')->only('index');
+        $this->middleware('permission:create.brands')->only(['create', 'store']);
+        $this->middleware('permission:update.brands')->only(['edit', 'update']);
+        $this->middleware('permission:delete.brands')->only('delete');
+    }
+
+
     public function index()
     {
         $brands = Brands::with('category')->where('deleted', 0)->get();
@@ -100,5 +110,13 @@ class BrandsController extends Controller
         }
 
     }
+
+
+    public function show($id)
+    {
+        $brands = Brands::with('category')->findOrFail($id);
+        return view('brands.show', compact('brands'));
+    }
+
 
 }

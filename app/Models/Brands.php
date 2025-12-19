@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Brands extends Model
+class Brands extends BaseModel
 {
     protected $table = 'brands';
 
@@ -26,8 +26,10 @@ class Brands extends Model
     public $timestamps = false;
 
 
+
     public function category()
     {
         return $this->belongsTo(Categories::class);
     }
+    
 }

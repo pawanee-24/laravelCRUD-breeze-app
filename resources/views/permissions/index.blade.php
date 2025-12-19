@@ -1,15 +1,15 @@
 <x-app-layout>
     {{-- Page title (browser tab) --}}
-    <x-slot name="title">Brands</x-slot>
+    <x-slot name="title">Permissions Management</x-slot>
     {{-- Page heading --}}
-    <x-slot name="pageTitle">Brands</x-slot>
+    <x-slot name="pageTitle">Permissions Management</x-slot>
 
     {{-- Breadcrumb --}}
     <x-slot name="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{ route('dashboard') }}">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Brands</li>
+        <li class="breadcrumb-item active">Permissions</li>
     </x-slot>
 
 
@@ -20,8 +20,8 @@
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">Brands Information</h6>
-                    <a href="{{ route('brands.create') }}" class="btn btn-sm btn-primary p-2">+ Add New</a>
+                    <h6 class="m-0 font-weight-bold text-primary">Permission List</h6>
+                    <a href="{{ route('permissions.create') }}" class="btn btn-sm btn-primary p-2">+ Add New Permission</a>
                 </div>
 
                 <div class="card-body">
@@ -31,37 +31,36 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Country</th>
                                     <th>Description</th>
-                                    <th>Action</th>
+                                    <th>Role Count</th>
+                                    <th>Created At</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-                                @forelse ($brands as $brand)
+                                @forelse ($permissions as $permission)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $brand->name ?? 'N/A' }}</td>
-                                        <td>{{ $brand->category->name ?? 'N/A' }}</td>
-                                        <td>{{ $brand->country ?? 'N/A' }}</td>
-                                        <td>{{ $brand->description ?? 'N/A' }}</td>
-                                        <td>
-                                            <a href="{{ url('/brands/details/' . $brand->id ) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ url('/brands/edit/' . $brand->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                        <td>{{ $permission->name }}</td>
+                                        <td>{{ $permission->description }}</td>
+                                        <td><span class="badge badge-dark">{{ $permission->roles_count }}</span></td>
+                                        <td>{{ $permission->created_at }}</td>
 
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="commonDeleteFunction('{{ url('/brands/delete/' . $brand->id) }}', '{{ $brand->name }}', this)">
+                                        <td>
+                                            <a href="{{ url('/permissions/details/' . $permission->id ) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ url('/permissions/edit/' . $permission->id ) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="commonDeleteFunction('{{ url('/permissions/delete/' . $permission->id) }}', '{{ $permission->name }}', this)">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-danger">NO brands</td>
+                                        <td colspan="4" class="text-danger">No Permissions</td>
                                     </tr>
                                 @endforelse
-
 
                             </tbody>
                         </table>
@@ -72,6 +71,7 @@
 
         </div>
     </div>
+
 
 @push('scripts')
 <script>

@@ -55,14 +55,21 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-5">
                             <label for="permissions[]" class="form-label mb-3">Permissions <span class="text-danger">*</span></label>
                             <div class="row">
                                 @foreach($permissions as $permission)
-                                    <div class="col-md-3">
-                                        <label>
-                                            <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"> {{ $permission->name }}
-                                        </label>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->name }}">
+
+                                            <label class="form-check-label" for="permission_{{ $permission->id }}">
+                                                <strong>{{ $permission->name }}</strong>
+                                                <div class="text-muted small">
+                                                    {{ $permission->description }}
+                                                </div>
+                                            </label>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>

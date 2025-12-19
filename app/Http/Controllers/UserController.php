@@ -9,27 +9,28 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:view.users')->only(['index']);
+        $this->middleware('permission:create.users')->only(['create', 'store']);
+        $this->middleware('permission:update.users')->only(['edit', 'update']);
+        $this->middleware('permission:delete.users')->only(['delete']);
+    }
+
     public function index()
     {
         $users = User::all();
         return view('users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $roles = Role::all();
         return view('users.create', compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -45,24 +46,20 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->syncRoles($request->roles);
 
         $user->save();
+        $user->syncRoles($request->roles);
 
         return redirect('/users')->with('msg', "User Created Successfully!");
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
+
+    public function show(Request $request)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit($id)
     {
         $users = User::findOrFail($id);
@@ -70,9 +67,7 @@ class UserController extends Controller
         return view('users.edit', compact('users', 'roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, $id)
     {
         $users = User::findOrFail($id);
@@ -100,10 +95,8 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
+
+    public function delete($id)
     {
         //
     }

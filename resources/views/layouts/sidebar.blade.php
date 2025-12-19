@@ -43,33 +43,53 @@
         Interface
     </div>
 
-    <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('users.index') }}">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Users</span>
-        </a>
-    </li>
+    @can('view.users')
+        <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Users</span>
+            </a>
+        </li>
+    @endcan
 
-    <li class="nav-item {{ request()->routeIs('categories.index') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('categories.index') }}">
-            <i class="fas fa-fw fa-stream"></i>
-            <span>Categories</span>
-        </a>
-    </li>
+    @can('view.categories')
+        <li class="nav-item {{ request()->routeIs('categories.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('categories.index') }}">
+                <i class="fas fa-fw fa-stream"></i>
+                <span>Categories</span>
+            </a>
+        </li>
+    @endcan
 
-    <li class="nav-item {{ request()->routeIs('brands.index') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('brands.index') }}">
-            <i class="fas fa-fw fa-poll"></i>
-            <span>Brands</span>
-        </a>
-    </li>
+    @can('view.brands')
+        <li class="nav-item {{ request()->routeIs('brands.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('brands.index') }}">
+                <i class="fas fa-fw fa-poll"></i>
+                <span>Brands</span>
+            </a>
+        </li>
+    @endcan
 
-    <li class="nav-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('roles.index') }}">
-            <i class="fas fa-fw fa-poll"></i>
-            <span>Roles</span>
-        </a>
-    </li>
+
+    @can('view.roles')
+        <li class="nav-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('roles.index') }}">
+                <i class="fas fa-fw fa-poll"></i>
+                <span>Roles</span>
+            </a>
+        </li>
+    @endcan
+
+
+    @can('view.permissions')
+        <li class="nav-item {{ request()->routeIs('permissions.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('permissions.index') }}">
+                <i class="fas fa-fw fa-poll"></i>
+                <span>Permissions</span>
+            </a>
+        </li>
+    @endcan
+
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -135,19 +155,7 @@
         </div>
     </li>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-    </li>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

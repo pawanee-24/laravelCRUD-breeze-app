@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categories extends Model
+class Categories extends BaseModel
 {
     protected $table = 'categories';
 
@@ -27,4 +27,5 @@ class Categories extends Model
     {
         return $this->hasMany(Brands::class);
     }
+    
 }

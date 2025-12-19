@@ -41,13 +41,13 @@
 
                             <tbody>
 
-                                @forelse ($roles as $role )
+                                @forelse ($roles as $role)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->description }}</td>
-                                        <td>{{ $role->users_count }}</td>
-                                        <td>{{ $role->permissions_count }}</td>
+                                        <td><span class="badge badge-dark">{{ $role->users_count }}</span></td>
+                                        <td><span class="badge badge-success">{{ $role->permissions_count }}</span></td>
                                         <td>{{ $role->created_at }}</td>
 
                                         <td>
